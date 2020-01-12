@@ -41,14 +41,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: IconButton(
                   iconSize: 56.0,
                   color: Colors.white,
-                  icon: Icon(Icons.camera_alt),
+                  icon: const Icon(Icons.camera_alt),
                   onPressed: () {},
                 ),
               ),
               expandedHeight: _usableScreenHeight * .55,
             ),
             SliverAppBar(
-              title: Text("Gallery"),
+              title: const Text(Strings.gallery),
               backgroundColor: Colors.white,
               pinned: true,
             ),
@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _noPreview() {
     return Center(
-      child: Text("No pictures available."),
+      child: Text(Strings.emptyGallery),
     );
   }
 }
