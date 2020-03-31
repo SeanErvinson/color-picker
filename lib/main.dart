@@ -1,5 +1,5 @@
 import 'package:color_picker/components/home/bloc/asset_bloc.dart';
-import 'package:color_picker/screens/home_screen.dart';
+import 'package:color_picker/screens/screens.dart';
 import 'package:color_picker/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +16,7 @@ class ColorPickerApp extends StatelessWidget {
       title: Strings.appName,
       routes: {
         "home": (context) => HomeScreen(),
+        "appraise": (context) => AppraiseScreen(),
       },
       home: BlocProvider(
         create: (context) => AssetBloc()..add(LoadImages()),
