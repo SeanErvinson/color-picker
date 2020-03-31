@@ -6,9 +6,9 @@ abstract class AssetEvent {}
 class OpenCamera extends AssetEvent {}
 
 class PickImage extends AssetEvent {
-  final File imageFile;
+  final String imagePath;
 
-  PickImage(this.imageFile);
+  PickImage(this.imagePath);
 }
 
 class LoadImages extends AssetEvent {}

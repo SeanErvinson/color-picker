@@ -6,7 +6,7 @@ abstract class AssetState {}
 class AssetInitial extends AssetState {}
 
 class AssetLoaded extends AssetState {
-  final List<Uint8List> imageFiles;
+  final List<UintImageAsset> imageFiles;
 
   AssetLoaded(this.imageFiles);
 }
