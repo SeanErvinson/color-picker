@@ -5,6 +5,7 @@ import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:color_picker/models/image_asset.dart';
+import 'package:color_picker/models/uint_image_asset.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
@@ -29,7 +30,7 @@ class AssetBloc extends Bloc<AssetEvent, AssetState> {
     } else if (event is LoadImages) {
       yield* _mapLoadImages();
     } else if (event is PickImage) {
-      yield* _mapPickImage(event.imageFile);
+      yield* _mapPickImage(event.imagePath);
     }
   }
 
@@ -54,13 +55,13 @@ class AssetBloc extends Bloc<AssetEvent, AssetState> {
     Iterable imagePath = jsonDecode(jsonData);
     var imageAssets =
         imagePath.map((model) => ImageAsset.fromJson(model)).toList();
-    List<Uint8List> imageFiles = [];
+    List<UintImageAsset> imageFiles = [];
     List<String> imageFolder = ["Screenshots", "Camera"];
     for (var imageAsset in imageAssets) {
       if (!imageFolder.contains(imageAsset.folderName)) continue;
       int imageLoadLength =
           imageAsset.files.length >= 25 ? 25 : imageAsset.files.length;
-      for (var imagePath in imageAsset.files.sublist(0, imageLoadLength)) {
+      for (var imagePath in imageAsset.files.sublist(imageAsset.files.length - imageLoadLength, imageAsset.files.length)) {
         try {
           List<int> imageByte = await FlutterImageCompress.compressWithFile(
             imagePath,
@@ -70,7 +71,8 @@ class AssetBloc extends Bloc<AssetEvent, AssetState> {
             format: CompressFormat.jpeg,
           );
           var uIntImageByte = Uint8List.fromList(imageByte);
-          imageFiles.add(uIntImageByte);
+          imageFiles.add(
+              UintImageAsset(fileName: imagePath, imageList: uIntImageByte));
         } on FlutterError catch (e) {
           print(e);
         }
@@ -79,7 +81,14 @@ class AssetBloc extends Bloc<AssetEvent, AssetState> {
     yield AssetLoaded(imageFiles);
   }
 
-  Stream<AssetState> _mapPickImage(File imageFile) async* {}
+  Stream<AssetState> _mapPickImage(String imagePath) async* {
+    var imageFile = File(imagePath);
+    if (imageFile == null) {
+      yield AssetLoadFailed();
+    } else {
+      yield AssetChosen(imageFile);
+    }
+  }
 
   Future<File> fetchImageAsset(ImageSource source) async {
     var imageFile = await ImagePicker.pickImage(source: source);
