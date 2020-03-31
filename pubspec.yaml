@@ -16,7 +16,7 @@ dependencies:
   storage_path: ^0.2.0
   image_picker: ^0.6.3
   flutter_image_compress: ^0.6.5+1
-
+  fluttertoast: ^4.0.1
 
   cupertino_icons: ^0.1.2
 
