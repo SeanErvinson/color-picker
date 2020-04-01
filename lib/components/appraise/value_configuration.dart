@@ -10,7 +10,6 @@ class ValueConfiguration extends StatefulWidget {
 
 class _ValueConfigurationState extends State<ValueConfiguration> {
   final TextEditingController _rgbController = TextEditingController();
-  final TextEditingController _hsvController = TextEditingController();
   final TextEditingController _cmykController = TextEditingController();
   final TextEditingController _hexController = TextEditingController();
   final double _wrapSpacing = 8.0;
@@ -18,7 +17,6 @@ class _ValueConfigurationState extends State<ValueConfiguration> {
   @override
   void initState() {
     _rgbController.text = "Hello";
-    _hsvController.text = "Hello";
     _cmykController.text = "Hello";
     _hexController.text = "Hello";
     super.initState();
@@ -27,7 +25,6 @@ class _ValueConfigurationState extends State<ValueConfiguration> {
   @override
   void dispose() {
     _rgbController.dispose();
-    _hsvController.dispose();
     _cmykController.dispose();
     _hexController.dispose();
     super.dispose();
@@ -53,10 +50,6 @@ class _ValueConfigurationState extends State<ValueConfiguration> {
         ValueField(
           controller: _cmykController,
           labelText: Strings.cmykColorLabel,
-        ),
-        ValueField(
-          controller: _hsvController,
-          labelText: Strings.hsvColorLabel,
         ),
       ],
     );
