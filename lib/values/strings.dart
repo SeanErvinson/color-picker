@@ -6,4 +6,5 @@ class Strings {
   static const String rgbColorLabel = "RGB";
   static const String hexColorLabel = "HEX";
   static const String copyClipboard = "Copy to clipboard";
+  static const String camera = "Camera";
 }
