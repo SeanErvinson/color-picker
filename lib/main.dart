@@ -16,7 +16,6 @@ class ColorPickerApp extends StatelessWidget {
       title: Strings.appName,
       routes: {
         "home": (context) => HomeScreen(),
-        "appraise": (context) => AppraiseScreen(),
       },
       home: BlocProvider(
         create: (context) => AssetBloc()..add(LoadImages()),
