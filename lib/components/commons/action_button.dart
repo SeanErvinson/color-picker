@@ -15,6 +15,9 @@ class ActionButton extends StatelessWidget {
     return Container(
       width: _buttonWidth,
       child: FlatButton(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(32.0))),
+        color: Colors.amber,
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         onPressed: _onPressed,
         child: Text(_title),
