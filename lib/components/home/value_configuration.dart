@@ -1,7 +1,10 @@
 import 'package:color_picker/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import 'bloc/appraise_bloc.dart';
 
 class ValueConfiguration extends StatefulWidget {
   @override
@@ -32,26 +35,35 @@ class _ValueConfigurationState extends State<ValueConfiguration> {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      direction: Axis.horizontal,
-      alignment: WrapAlignment.center,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      spacing: _wrapSpacing,
-      runSpacing: _wrapSpacing,
-      children: <Widget>[
-        ValueField(
-          controller: _rgbController,
-          labelText: Strings.rgbColorLabel,
-        ),
-        ValueField(
-          controller: _hexController,
-          labelText: Strings.hexColorLabel,
-        ),
-        ValueField(
-          controller: _cmykController,
-          labelText: Strings.cmykColorLabel,
-        ),
-      ],
+    return BlocBuilder<AppraiseBloc, AppraiseState>(
+      builder: (context, state) {
+        if(state is AppraiseUpdating){
+          _hexController.text = state.colorValue.hEX;
+          _rgbController.text = state.colorValue.rGB.toString();
+          _cmykController.text = state.colorValue.cMYK.toString();
+        }
+        return Wrap(
+          direction: Axis.horizontal,
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: _wrapSpacing,
+          runSpacing: _wrapSpacing,
+          children: <Widget>[
+            ValueField(
+              controller: _rgbController,
+              labelText: Strings.rgbColorLabel,
+            ),
+            ValueField(
+              controller: _hexController,
+              labelText: Strings.hexColorLabel,
+            ),
+            ValueField(
+              controller: _cmykController,
+              labelText: Strings.cmykColorLabel,
+            ),
+          ],
+        );
+      },
     );
   }
 }

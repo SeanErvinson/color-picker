@@ -1,5 +1,6 @@
 import 'package:color_picker/components/commons/action_button.dart';
 import 'package:color_picker/components/home/appraise_image.dart';
+import 'package:color_picker/components/home/bloc/appraise_bloc.dart';
 import 'package:color_picker/components/home/bloc/asset_bloc.dart';
 import 'package:color_picker/components/home/color_preview.dart';
 import 'package:color_picker/components/home/value_configuration.dart';
@@ -26,12 +27,14 @@ class HomeScreen extends StatelessWidget {
                         appraiseImage = AppraiseImage(
                           imageFile: state.imageFile,
                         );
+                        BlocProvider.of<AppraiseBloc>(context)
+                            .add(LoadAppraise(state.imageFile));
                       } else {
                         appraiseImage = Container();
                       }
                       return Container(
                         width: double.infinity,
-                        color: Colors.amber,
+                        color: Colors.black,
                         child: appraiseImage,
                       );
                     },
