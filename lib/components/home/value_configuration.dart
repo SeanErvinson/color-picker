@@ -16,9 +16,9 @@ class _ValueConfigurationState extends State<ValueConfiguration> {
 
   @override
   void initState() {
-    _rgbController.text = "Hello";
-    _cmykController.text = "Hello";
-    _hexController.text = "Hello";
+    _rgbController.text = "255,255,255";
+    _cmykController.text = "0, 0.21, 0.74, 0.2.";
+    _hexController.text = "#ffffff";
     super.initState();
   }
 
@@ -34,7 +34,7 @@ class _ValueConfigurationState extends State<ValueConfiguration> {
   Widget build(BuildContext context) {
     return Wrap(
       direction: Axis.horizontal,
-      alignment: WrapAlignment.start,
+      alignment: WrapAlignment.center,
       crossAxisAlignment: WrapCrossAlignment.center,
       spacing: _wrapSpacing,
       runSpacing: _wrapSpacing,
@@ -83,10 +83,13 @@ class ValueField extends StatelessWidget {
         textAlign: TextAlign.center,
         readOnly: true,
         controller: _controller,
-        style: TextStyle(fontSize: 14.0),
+        style: TextStyle(fontSize: 16.0),
         decoration: InputDecoration(
+          isDense: true,
+          contentPadding: EdgeInsets.all(8.0),
           border: OutlineInputBorder(),
           labelText: _labelText,
+          labelStyle: TextStyle(fontSize: 14.0),
         ),
       ),
     );
