@@ -12,6 +12,11 @@ class RGB {
   int blue;
 
   RGB({this.red, this.green, this.blue});
+
+  @override
+  String toString() {
+    return "$red, $green, $blue";
+  }
 }
 
 class CMYK {
@@ -21,4 +26,9 @@ class CMYK {
   int black;
 
   CMYK({this.cyan, this.magenta, this.yellow, this.black});
+
+  @override
+  String toString() {
+    return "$cyan%, $magenta%, $yellow%, $black%";
+  }
 }
