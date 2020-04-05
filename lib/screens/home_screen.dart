@@ -1,5 +1,4 @@
 import 'package:color_picker/components/commons/action_button.dart';
-import 'package:color_picker/components/commons/apparaise_screen_arguments.dart';
 import 'package:color_picker/components/home/bloc/asset_bloc.dart';
 import 'package:color_picker/components/home/value_configuration.dart';
 import 'package:color_picker/values/values.dart';
@@ -12,17 +11,10 @@ class HomeScreen extends StatelessWidget {
     final _usableScreenHeight =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     return SafeArea(
-      child: BlocListener<AssetBloc, AssetState>(
-        listener: (context, state) {
-          if (state is AssetChosen) {
-            Navigator.of(context).pushNamed("appraise",
-                arguments: AppraiseScreenArguments(state.imageFile));
-          }
-        },
-        child: BlocBuilder<AssetBloc, AssetState>(
+      child: Scaffold(
+        body: BlocBuilder<AssetBloc, AssetState>(
           builder: (context, state) {
-            return Scaffold(
-                body: Column(
+            return Column(
               children: <Widget>[
                 Expanded(
                   child: Stack(
@@ -68,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ],
-            ));
+            );
           },
         ),
       ),
