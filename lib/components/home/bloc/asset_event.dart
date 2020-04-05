@@ -11,6 +11,4 @@ class PickImage extends AssetEvent {
   PickImage(this.imagePath);
 }
 
-class LoadImages extends AssetEvent {}
-
 class OpenImagePicker extends AssetEvent {}
