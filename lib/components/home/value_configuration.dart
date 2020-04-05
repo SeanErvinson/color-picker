@@ -19,9 +19,6 @@ class _ValueConfigurationState extends State<ValueConfiguration> {
 
   @override
   void initState() {
-    _rgbController.text = "255,255,255";
-    _cmykController.text = "0, 0.21, 0.74, 0.2.";
-    _hexController.text = "#ffffff";
     super.initState();
   }
 
