@@ -4,3 +4,9 @@ part of 'appraise_bloc.dart';
 abstract class AppraiseState {}
 
 class AppraiseInitial extends AppraiseState {}
+
+class AppraiseUpdating extends AppraiseState {
+  final ColorValue colorValue;
+
+  AppraiseUpdating(this.colorValue);
+}
