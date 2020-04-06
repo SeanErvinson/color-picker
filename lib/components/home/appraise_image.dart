@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppraiseImage extends StatelessWidget {
-  GlobalKey _imageKey = GlobalKey();
+  final GlobalKey _imageKey = GlobalKey();
   final File _imageFile;
   AppraiseImage({Key key, File imageFile}) : this._imageFile = imageFile;
 
@@ -16,17 +16,22 @@ class AppraiseImage extends StatelessWidget {
         BlocProvider.of<AppraiseBloc>(context).add(CancelAppraise());
       },
       onPanDown: (DragDownDetails details) {
+        RenderBox imageBox = _imageKey.currentContext.findRenderObject();
+        Offset localPosition = imageBox.globalToLocal(details.globalPosition);
         BlocProvider.of<AppraiseBloc>(context)
-            .add(UpdateAppraise(details.globalPosition));
+            .add(UpdateAppraise(localPosition, imageBox.size));
       },
       onPanUpdate: (DragUpdateDetails details) {
+        RenderBox imageBox = _imageKey.currentContext.findRenderObject();
+        Offset localPosition = imageBox.globalToLocal(details.globalPosition);
         BlocProvider.of<AppraiseBloc>(context)
-            .add(UpdateAppraise(details.globalPosition));
+            .add(UpdateAppraise(localPosition, imageBox.size));
       },
-      child: Image.file(
-        _imageFile,
-        key: _imageKey,
-        fit: BoxFit.none,
+      child: Center(
+        child: Image.file(
+          _imageFile,
+          key: _imageKey,
+        ),
       ),
     );
   }
