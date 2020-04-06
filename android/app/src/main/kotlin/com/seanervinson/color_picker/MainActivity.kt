@@ -1,4 +1,4 @@
-package com.example.color_picker
+package com.seanervinson.color_picker
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
