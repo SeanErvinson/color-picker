@@ -4,9 +4,10 @@ part of 'appraise_bloc.dart';
 abstract class AppraiseEvent {}
 
 class UpdateAppraise extends AppraiseEvent {
-  final Offset offset;
+  final ui.Size containerSize;
+  final ui.Offset offset;
 
-  UpdateAppraise(this.offset);
+  UpdateAppraise(this.offset, this.containerSize);
 }
 
 class CancelAppraise extends AppraiseEvent {}
