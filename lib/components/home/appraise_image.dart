@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:color_picker/components/home/bloc/appraise_bloc.dart';
-import 'package:color_picker/models/coordinate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppraiseImage extends StatelessWidget {
+  GlobalKey _imageKey = GlobalKey();
   final File _imageFile;
-  const AppraiseImage({Key key, File imageFile}) : this._imageFile = imageFile;
+  AppraiseImage({Key key, File imageFile}) : this._imageFile = imageFile;
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +16,18 @@ class AppraiseImage extends StatelessWidget {
         BlocProvider.of<AppraiseBloc>(context).add(CancelAppraise());
       },
       onPanDown: (DragDownDetails details) {
-        Coordinate point = Coordinate(
-            x: details.globalPosition.dx.toInt(),
-            y: details.globalPosition.dy.toInt());
-        BlocProvider.of<AppraiseBloc>(context).add(UpdateAppraise(point));
+        BlocProvider.of<AppraiseBloc>(context)
+            .add(UpdateAppraise(details.globalPosition));
       },
       onPanUpdate: (DragUpdateDetails details) {
-        Coordinate point = Coordinate(
-            x: details.globalPosition.dx.toInt(),
-            y: details.globalPosition.dy.toInt());
-        BlocProvider.of<AppraiseBloc>(context).add(UpdateAppraise(point));
+        BlocProvider.of<AppraiseBloc>(context)
+            .add(UpdateAppraise(details.globalPosition));
       },
-      child: Image.file(_imageFile),
+      child: Image.file(
+        _imageFile,
+        key: _imageKey,
+        fit: BoxFit.none,
+      ),
     );
   }
 }

@@ -3,8 +3,8 @@ import 'dart:io';
 import 'dart:ui' as ui;
 import 'dart:typed_data';
 import 'dart:math';
+import 'dart:ui';
 import 'package:color_picker/models/color_value.dart';
-import 'package:color_picker/models/coordinate.dart';
 import 'package:image/image.dart';
 
 import 'package:bloc/bloc.dart';
@@ -23,16 +23,16 @@ class AppraiseBloc extends Bloc<AppraiseEvent, AppraiseState> {
     AppraiseEvent event,
   ) async* {
     if (event is UpdateAppraise) {
-      yield* _mapUpdateAppraise(event.coordinate);
+      yield* _mapUpdateAppraise(event.offset);
     } else if (event is LoadAppraise) {
       yield* _mapLoadAppraise(event.imageFile);
     }
   }
 
-  Stream<AppraiseState> _mapUpdateAppraise(Coordinate coordinate) async* {
+  Stream<AppraiseState> _mapUpdateAppraise(Offset offset) async* {
     if (_selectedImage == null) return;
-    int hex =
-        kslToARGB(_selectedImage.getPixelSafe(coordinate.x, coordinate.y));
+    int hex = kslToARGB(
+        _selectedImage.getPixelSafe(offset.dx.toInt(), offset.dy.toInt()));
     ui.Color currentCOlor = ui.Color(hex);
     RGB rgb = RGB(
         blue: currentCOlor.blue,
